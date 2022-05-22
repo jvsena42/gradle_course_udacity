@@ -1,0 +1,9 @@
+task groovy{}
+
+def foo = "1 milion dollars"
+def myClosure = {
+    println "this is a closure"
+    println "the value is $foo"
+}
+
+myClosure()
