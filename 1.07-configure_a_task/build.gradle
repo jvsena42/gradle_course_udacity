@@ -1,0 +1,9 @@
+task hello {
+    group 'gradle course'
+
+    description 'the hitchhikers guide to the galaxy'
+    
+    doLast {
+        println "the answer to life, the universe and everything is 42"
+    }
+}
