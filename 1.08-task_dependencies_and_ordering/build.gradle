@@ -1,0 +1,63 @@
+/*
+using dependsOn, the task B will only to its work
+after the task A is done
+*/
+
+task putOnSocks {
+    doLast {
+        println "putting on my socks"
+    }
+}
+
+task putOnShoes {
+    dependsOn "putOnSocks"
+    doLast {
+        println "putting on my shoes"
+    }
+}
+
+/*We don't see the putOnSock statement because gradle assumes the it only
+exists to help putOnShoes*/
+
+/////
+
+/*
+using finalizedBy, every time the task A runs, the task B must run aftewards
+*/
+
+task eatSomething {
+    finalizedBy "brushMyTeeth"
+    doLast {
+        println "I'm eating"
+    }
+}
+
+task brushMyTeeth {
+    doLast {
+        println "I'm brushing my teeth"
+    }
+}
+
+/*
+mustRunAfter is used to tasks that have no dependency relationship, but
+we want to ordering them if they ares executed togueder, for example,
+we want run the unit tests and only them deplo the app
+*/
+
+
+task runUnitTests {
+    doLast {
+        println "Run unit tests"
+    }
+}
+
+task deployApp {
+    mustRunAfter "runUnitTests"
+    doLast {
+        println "Deploy app"
+    }
+}
+
+/*
+if we run `gradle deployApp runUnitTests`, the runUnitTests will run first
+*/
