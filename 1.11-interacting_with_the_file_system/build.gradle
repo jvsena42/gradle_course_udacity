@@ -1,0 +1,23 @@
+task copyWeb(type: Copy) {
+
+    from ('src/web') {
+        into 'web'
+    }
+
+    from ('src/docs') {
+        include '*.txt'
+        into 'web/help'
+    }
+
+    into 'build'
+}
+
+task bundleWeb(type: Zip, dependsOn copyWeb) {
+    baseName = 'web'
+    destinationDir = file('build')
+    from 'build/web'
+    exclude 'images/**'
+}
+
+
+
