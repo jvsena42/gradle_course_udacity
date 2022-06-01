@@ -12,12 +12,20 @@ task copyWeb(type: Copy) {
     into 'build'
 }
 
-task bundleWeb(type: Zip, dependsOn copyWeb) {
+task bundleWeb(type: Zip, dependsOn: copyWeb) {
     baseName = 'web'
     destinationDir = file('build')
     from 'build/web'
     exclude 'images/**'
 }
 
+task unpackBundle(type: Copy, dependsOn: bundleWeb) {
+    from zipTree('build/web.zip')
+    into 'build/exploded'
+}
+
+task deleteHelp(type: Delete, dependsOn: copyWeb) {
+    delete 'build/web/help'
+}
 
 
